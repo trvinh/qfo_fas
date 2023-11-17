@@ -10,6 +10,6 @@ python parse_op.py -i test_data/test_pairs.txt -a ../qfo20_anno_dir --nrPairs ..
 ```
 3. Calculate FAS scores for those approach specific ortholog pairs
 ```
-fas.runMultiTaxa --input test_data/test_pairs.txt.mapped -a ../qfo20_anno_dir -o ../test2 --tsv --domain --no_config --raw
+fas.runMultiTaxa --input test_data/test_pairs.txt.mapped -a ../qfo20_anno_dir -o ../test2 --bidirectional --tsv --domain --no_config --json --mergeJson --outName <fas_qfo20> --pairLimit 30000
 ```
 4. Get all FAS scores for a prediction tool
