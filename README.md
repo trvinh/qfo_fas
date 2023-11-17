@@ -13,3 +13,6 @@ python parse_op.py -i test_data/test_pairs.txt -a ../qfo20_anno_dir --nrPairs ..
 fas.runMultiTaxa --input test_data/test_pairs.txt.mapped -a ../qfo20_anno_dir -o ../test2 --bidirectional --tsv --domain --no_config --json --mergeJson --outName <fas_qfo20> --pairLimit 30000
 ```
 4. Get all FAS scores for a prediction tool
+```
+python get_fas.py -i inparanoid.txt -f qfo20_fas_subset.json -o inparanoid_fas
+```
