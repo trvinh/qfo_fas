@@ -8,7 +8,7 @@
 ```
 python parse_op.py -i test_data/test_pairs.txt -a qfo20_anno_dir --nrPairs nr_pairs.txt --cpus 4
 ```
-3. Install [FAS tool]([https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-417](https://github.com/BIONF/FAS))
+3. Install [FAS tool](https://github.com/BIONF/FAS)
 4. Calculate FAS scores for those approach specific ortholog pairs
 ```
 fas.runMultiTaxa --input test_data/test_pairs.txt.mapped -a qfo20_anno_dir -o <output_path> --bidirectional --tsv --domain --no_config --json --mergeJson --outName <output_filename> --pairLimit 30000
