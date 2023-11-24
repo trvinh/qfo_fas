@@ -8,12 +8,18 @@
 ```
 python parse_op.py -i test_data/test_pairs.txt -a qfo20_anno_dir --nrPairs nr_pairs.txt --cpus 8
 ```
-3. Install [FAS tool](https://github.com/BIONF/FAS)
+3. Install [FAS tool](https://github.com/BIONF/FAS) and run `fas.setup` (the installation of the annotation tools can be skipped with the option `--noAnno`)
 4. Calculate FAS scores for those approach specific ortholog pairs
 ```
-fas.runMultiTaxa --input test_data/test_pairs.txt.mapped -a qfo20_anno_dir -o <output_path> --bidirectional --tsv --domain --no_config --json --mergeJson --outName <output_filename> --pairLimit 30000 --cpus 8
+fas.runMultiTaxa --input test_data/test_pairs.txt.mapped -a qfo20_anno_dir -o <output_path> --bidirectional --tsv --domain --no_config --json --mergeJson --outName <output_filename> --max_cardinality 100 --paths_limit 10 --pairLimit 30000 --cpus 32
 ```
-5. Merge the result from step 4 **`<output_path>/<output_filename>.json`** with **qfo20_fas_subset.json** and get all FAS scores for a prediction tool
+5. Merge the result from step 4 **`<output_path>/<output_filename>.json`** with **qfo20_fas_subset.json** either manually or using this script
+```
+# first, copy or link qfo20_fas_subset.json to <output_path>
+# then, run
+fas.mergeJson -i <output_path> -n qfo20_fas_merged
+```
+6. and get all FAS scores for a prediction tool
 ```
 python get_fas.py -i inparanoid.txt -f qfo20_fas_merged.json -o inparanoid_fas
 ```
