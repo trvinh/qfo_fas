@@ -11,7 +11,7 @@ python parse_op.py -i test_data/test_pairs.txt -a qfo20_anno_dir --nrPairs nr_pa
 3. Install [FAS tool](https://github.com/BIONF/FAS) and run `fas.setup` (the installation of the annotation tools can be skipped with the option `--noAnno`)
 4. Calculate FAS scores for those approach specific ortholog pairs
 ```
-fas.runMultiTaxa --input test_data/test_pairs.txt.mapped -a qfo20_anno_dir -o <output_path> --bidirectional --tsv --domain --no_config --json --mergeJson --outName <output_filename> --max_cardinality 100 --paths_limit 10 --pairLimit 30000 --cpus 32
+fas.runMultiTaxa --input test_data/test_pairs.txt.mapped -a qfo20_anno_dir -o <output_path> --bidirectional --tsv --domain --no_config --json --mergeJson --outName <output_filename> --max_cardinality 100 --pairLimit 30000 --cpus 32
 ```
 5. Merge the result from step 4 **`<output_path>/<output_filename>.json`** with **qfo20_fas_subset.json** either manually or using this script
 ```
