@@ -47,12 +47,23 @@ def map_ortho_pairs(in_file, taxa_dict, nr_pairs, cpus):
     """Mapping ortholog pairs to their taxa
     Input ortho_pairs is a list of pairwise ortholog IDs
     """
+    missing_anno = {}
+
     with open(f'{in_file}.mapped', 'w') as out_file:
         diff_pairs = get_diff_pairs(in_file, nr_pairs, cpus)
+        print(f'Total pairs: {len(diff_pairs)}')
         if len(diff_pairs) > 0:
             for (id1,id2) in diff_pairs:
                 if id1 in taxa_dict and id2 in taxa_dict:
                     out_file.write('%s\t%s\t%s\t%s\n' % (id1, taxa_dict[id1], id2, taxa_dict[id2]))
+                else:
+                    if id1 not in taxa_dict:
+                        missing_anno[id1] = ''
+                    if id2 not in taxa_dict:
+                        missing_anno[id2] = ''
+    with open(f'{in_file}.missing', 'w') as mf:
+        for m_id in missing_anno:
+            mf.write('%s\n' % m_id)
 
 
 def read_pairwise_ortholog(in_file):
@@ -123,8 +134,11 @@ def main():
 
     print('==> parsing json files...')
     taxa_dict = read_json_dir(anno_dir, cpus)
-    print('==> getting pre-defined nr-pairs...')
-    nr_pairs = read_pairwise_ortholog(args.nrPairs)
+    if args.nrPairs:
+        print('==> getting pre-defined nr-pairs...')
+        nr_pairs = read_pairwise_ortholog(args.nrPairs)
+    else:
+        nr_pairs = []
     print('==> mapping proteins to taxa...')
     map_ortho_pairs(in_file, taxa_dict, nr_pairs, cpus)
     print(f'DONE! Check output file {in_file}.mapped')
