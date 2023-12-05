@@ -28,10 +28,11 @@ def get_fas(fas_dict, in_file):
     with open(in_file, 'r') as f:
         for line in f:
             tmp = line.strip().split()
-            if f'{tmp[0]}_{tmp[1]}' in fas_dict:
-                fas_out.update({f'{tmp[0]}_{tmp[1]}': fas_dict[f'{tmp[0]}_{tmp[1]}']})
-            elif f'{tmp[1]}_{tmp[0]}' in fas_dict:
-                fas_out.update({f'{tmp[1]}_{tmp[0]}': fas_dict[f'{tmp[1]}_{tmp[0]}']})
+            if len(tmp) == 2:
+                if f'{tmp[0]}_{tmp[1]}' in fas_dict:
+                    fas_out.update({f'{tmp[0]}_{tmp[1]}': fas_dict[f'{tmp[0]}_{tmp[1]}']})
+                elif f'{tmp[1]}_{tmp[0]}' in fas_dict:
+                    fas_out.update({f'{tmp[1]}_{tmp[0]}': fas_dict[f'{tmp[1]}_{tmp[0]}']})
     return(fas_out)
 
 
