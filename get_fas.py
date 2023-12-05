@@ -89,7 +89,7 @@ def main():
         print(f'==> writing to {out_file}/{out_format}...')
         write_output(sel_fas_dict, out_file, out_format)
     mean = get_mean(sel_fas_dict)
-    print(f'MEAN FAS SCORE: {mean}')
+    print(f'MEAN FAS SCORE: {mean} (total {len(sel_fas_dict)} pairs)')
     print(f'DONE!')
 
 if __name__ == '__main__':
