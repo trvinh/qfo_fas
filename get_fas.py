@@ -28,7 +28,7 @@ def get_fas(fas_dict, in_file):
     with open(in_file, 'r') as f:
         for line in f:
             tmp = line.strip().split()
-            if len(tmp) == 2:
+            if len(tmp) >= 2:
                 if f'{tmp[0]}_{tmp[1]}' in fas_dict:
                     fas_out.update({f'{tmp[0]}_{tmp[1]}': fas_dict[f'{tmp[0]}_{tmp[1]}']})
                 elif f'{tmp[1]}_{tmp[0]}' in fas_dict:
@@ -41,9 +41,10 @@ def get_mean(fas_dict):
     """
     fas_list = []
     for pair in fas_dict:
-        fas_list.append(statistics.mean(np.array(fas_dict[pair], dtype = float)))
+        if not 'NA' in fas_dict[pair]:
+            fas_list.append(statistics.mean(np.array(fas_dict[pair], dtype = float)))
     if len(fas_list) > 0:
-        return(round(statistics.mean(fas_list), 2))
+        return((round(statistics.mean(fas_list), 3),len(fas_list)))
     else:
         return('NA')
 
@@ -89,8 +90,8 @@ def main():
     if out_file:
         print(f'==> writing to {out_file}/{out_format}...')
         write_output(sel_fas_dict, out_file, out_format)
-    mean = get_mean(sel_fas_dict)
-    print(f'MEAN FAS SCORE: {mean} (total {len(sel_fas_dict)} pairs)')
+    (mean,pairs) = get_mean(sel_fas_dict)
+    print(f'MEAN FAS SCORE: {mean} (calculated with {pairs}/{len(sel_fas_dict)} pairs)')
     print(f'DONE!')
 
 if __name__ == '__main__':
